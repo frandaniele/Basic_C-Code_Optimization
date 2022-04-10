@@ -5,3 +5,5 @@
 4. define xdim ydim en lugar de int 
 5. cambie %d por %i en los prints
 6. hice loop unrolling de for de la primera l desp de for de k en compute
+7. ver analysis 1-8
+8. saque todos los + 1 en tmp_sum (9) e inicie accum en 9

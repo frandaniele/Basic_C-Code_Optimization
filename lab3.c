@@ -10,7 +10,7 @@
 // We return the pointer
 double **alloc_matrix(void) /* Allocate the array */{
     /* Check if allocation succeeded. (check for NULL pointer) */
-    int i, j, k; 
+    int i;//, j, k; 
     double **array;
     array = malloc(XDIM*sizeof(double *));
 
@@ -18,9 +18,9 @@ double **alloc_matrix(void) /* Allocate the array */{
     for(i = 0; i < XDIM; i++)
         array[i] = malloc(YDIM*sizeof(double));
   
-    for(j=0; j<XDIM; j++)
+   /* for(j=0; j<XDIM; j++)
         for(k=0; k<YDIM; k++)
-            memset(&array[k][j], j, sizeof(double));
+            memset(&array[k][j], j, sizeof(double));*/
     return array;
 }
 
@@ -40,7 +40,7 @@ void compute(double** arr, int kern[3][3]){
     for(i = 0; i < XDIM; i++){
         int x = i - 1;
         for(j = 0; j < YDIM; j++){
-           // printf("processing: %i - %i \n", i, j); lo hace muuuuy lento
+            //printf("processing: %i - %i \n", i, j); //lo hace muuuuy lento
             if(i >= 1 && j >=1 && i < XDIM-1 && j <YDIM-1){
                 /*for(k = 0; k < 3; k++){
                    // for(l = 0; l < 3; l++){
@@ -58,7 +58,7 @@ void compute(double** arr, int kern[3][3]){
                    // }
                 }*/
 
-                dato = arr[x][j];
+               /* dato = arr[x][j];
                 tmp_sum[0] = (4*kern[0][0]*dato)/1000 + 1;
                 tmp_sum[1] = (4*kern[0][1]*dato)/1000 + 1;
                 tmp_sum[2] = (4*kern[0][2]*dato)/1000 + 1;
@@ -71,9 +71,25 @@ void compute(double** arr, int kern[3][3]){
                 dato = arr[x + 2][j];
                 tmp_sum[6] = (4*kern[2][0]*dato)/1000 + 1;
                 tmp_sum[7] = (4*kern[2][1]*dato)/1000 + 1;
-                tmp_sum[8] = (4*kern[2][2]*dato)/1000 + 1;
+                tmp_sum[8] = (4*kern[2][2]*dato)/1000 + 1;*/
 
-                accum = 0;
+                dato = arr[x][j];
+                tmp_sum[0] = (kern[0][0]*dato)/1000;// + 1;
+                tmp_sum[1] = (kern[0][1]*dato)/1000;// + 1;
+                tmp_sum[2] = (kern[0][2]*dato)/1000;// + 1;
+
+                dato = arr[x + 1][j];
+                tmp_sum[3] = (kern[1][0]*dato)/1000;// + 1;
+                tmp_sum[4] = (kern[1][1]*dato)/1000;// + 1;
+                tmp_sum[5] = (kern[1][2]*dato)/1000;// + 1;
+                        
+                dato = arr[x + 2][j];
+                tmp_sum[6] = (kern[2][0]*dato)/1000;// + 1;
+                tmp_sum[7] = (kern[2][1]*dato)/1000;// + 1;
+                tmp_sum[8] = (kern[2][2]*dato)/1000;// + 1;
+
+                //accum = 0;
+                accum = 9;
                /* for(k = 0; k < 3; k++){
                    // for(l = 0; l < 3; l++)
                        // accum = accum + tmp_sum[k*3+l];
@@ -94,15 +110,16 @@ void compute(double** arr, int kern[3][3]){
 
 void print(double** arr){
     int i, j;
-    for(i = 0 ; i < 10 ; i++)
-        for(j = 0 ; j < 10 ; j++)
+    for(i = 0 ; i < 3; i++)
+        for(j = 0 ; j < 5; j++)
             printf("array[%i][%i] = %f\n", i, j, arr[i][j]);
 }
 
 int main(void){
    // int i = 0;
     double **arr;
-    int kern[3][3] = {{0, -1, 0}, {-1, 5, -1}, {0, -1, 0}};
+ //   int kern[3][3] = {{0, -1, 0}, {-1, 5, -1}, {0, -1, 0}};
+    int kern[3][3] = {{0, -4, 0}, {-4, 20, -4}, {0, -4, 0}};
 
     arr = alloc_matrix();
     fill(arr);
