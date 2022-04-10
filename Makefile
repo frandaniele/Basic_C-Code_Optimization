@@ -5,6 +5,7 @@ lab3:	lab3.c
 	$(CC) $(OFLAGS) -pg -o lab3 lab3.c
 
 gmon: 
+	./lab3
 	gprof lab3 gmon.out > analysis.txt
 
 cppcheck: 

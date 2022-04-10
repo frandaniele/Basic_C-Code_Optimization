@@ -59,19 +59,19 @@ void compute(double** arr, int kern[3][3]){
                 }*/
 
                 dato = arr[x][j];
-                tmp_sum[0] = 2*(2*kern[0][0]*dato)/1000 + 1;
-                tmp_sum[1] = 2*(2*kern[0][1]*dato)/1000 + 1;
-                tmp_sum[2] = 2*(2*kern[0][2]*dato)/1000 + 1;
+                tmp_sum[0] = (4*kern[0][0]*dato)/1000 + 1;
+                tmp_sum[1] = (4*kern[0][1]*dato)/1000 + 1;
+                tmp_sum[2] = (4*kern[0][2]*dato)/1000 + 1;
 
                 dato = arr[x + 1][j];
-                tmp_sum[3] = 2*(2*kern[1][0]*dato)/1000 + 1;
-                tmp_sum[4] = 2*(2*kern[1][1]*dato)/1000 + 1;
-                tmp_sum[5] = 2*(2*kern[1][2]*dato)/1000 + 1;
+                tmp_sum[3] = (4*kern[1][0]*dato)/1000 + 1;
+                tmp_sum[4] = (4*kern[1][1]*dato)/1000 + 1;
+                tmp_sum[5] = (4*kern[1][2]*dato)/1000 + 1;
                         
                 dato = arr[x + 2][j];
-                tmp_sum[6] = 2*(2*kern[2][0]*dato)/1000 + 1;
-                tmp_sum[7] = 2*(2*kern[2][1]*dato)/1000 + 1;
-                tmp_sum[8] = 2*(2*kern[2][2]*dato)/1000 + 1;
+                tmp_sum[6] = (4*kern[2][0]*dato)/1000 + 1;
+                tmp_sum[7] = (4*kern[2][1]*dato)/1000 + 1;
+                tmp_sum[8] = (4*kern[2][2]*dato)/1000 + 1;
 
                 accum = 0;
                /* for(k = 0; k < 3; k++){
@@ -86,7 +86,6 @@ void compute(double** arr, int kern[3][3]){
                 accum = accum + tmp;
                 tmp = tmp_sum[6] + tmp_sum[7] + tmp_sum[8];
                 accum = accum + tmp;
-  
             }
             arr[i][j] = accum;
         }
@@ -95,8 +94,8 @@ void compute(double** arr, int kern[3][3]){
 
 void print(double** arr){
     int i, j;
-    for(i = 0 ; i < 3 ; i++)
-        for(j = 0 ; j < 5 ; j++)
+    for(i = 0 ; i < 10 ; i++)
+        for(j = 0 ; j < 10 ; j++)
             printf("array[%i][%i] = %f\n", i, j, arr[i][j]);
 }
 
