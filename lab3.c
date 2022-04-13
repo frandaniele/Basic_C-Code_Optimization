@@ -25,11 +25,11 @@ void fill(double** arr){
 
     for(i = 0; i < XDIM; i++)
         for(j = 0; j < YDIM; j++)
-            arr[i][j] = (double)(rand() % 100);
+            arr[i][j] = (double)((unsigned int)rand() % 100);
 }
 
 void compute(double** arr, int kern[3][3]){
-    double tmp_sum[9];
+    double tmp_sum[3];
     double dato, accum;
     int i, j;
 
@@ -40,20 +40,15 @@ void compute(double** arr, int kern[3][3]){
             //printf("processing: %i - %i \n", i, j); //lo hace muuuuy lento
             if(i >= 1 && j >=1 && i < XDIM-1 && j <YDIM-1){
                 dato = arr[x][j];
-                tmp_sum[1] = (kern[0][1]*dato)/1000;
+                tmp_sum[0] = (kern[0][1]*dato);
 
                 dato = arr[x + 1][j];
-                tmp_sum[3] = (kern[1][0]*dato)/1000;
-                tmp_sum[4] = (kern[1][1]*dato)/1000;
-                tmp_sum[5] = (kern[1][2]*dato)/1000;
+                tmp_sum[1] = (kern[1][0] + kern[1][1] + kern[1][2])*dato;
                             
                 dato = arr[x + 2][j];
-                tmp_sum[7] = (kern[2][1]*dato)/1000;
+                tmp_sum[2] = (kern[2][1]*dato);
 
-                accum = 9;
-                
-                double tmp = tmp_sum[1] + tmp_sum[3] + tmp_sum[4] + tmp_sum[5] + tmp_sum[7];
-                accum = accum + tmp;
+                accum = 9 + (tmp_sum[0] + tmp_sum[1] + tmp_sum[2])*0.001;
             }
             arr[i][j] = accum;
         }

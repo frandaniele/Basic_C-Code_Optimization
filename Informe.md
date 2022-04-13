@@ -13,8 +13,9 @@
 12. hasta nalysis 14 no hay mas cambios que los hasta aca hechos
 
 # ver
-arr[x][9998] = arr[x][9999] siempre -- esta
 arr[0][x] = 0 siempre -- esta
 
+ya elimine el i<=1 del if, seguir con los otros
+arr[x][9998] = arr[x][9999] siempre
 arr[9999][x] = 9.539862 siempre
 arr[x][9999] = arr[x+1][0] siempre => arr[x][9998] = arr[x][9999] = arr[x+1][0] 
