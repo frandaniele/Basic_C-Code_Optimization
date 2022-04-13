@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <time.h>
 
 #define XDIM 10000
 #define YDIM 10000
@@ -10,7 +7,7 @@
 // We return the pointer
 double **alloc_matrix(void) /* Allocate the array */{
     /* Check if allocation succeeded. (check for NULL pointer) */
-    int i;//, j, k; 
+    int i;
     double **array;
     array = malloc(XDIM*sizeof(double *));
 
@@ -25,7 +22,7 @@ void fill(double** arr){
 
     for(i = 0; i < XDIM; i++)
         for(j = 0; j < YDIM; j++)
-            arr[i][j] = (double)((unsigned int)rand() % 100);
+            arr[i][j] = (double)(rand() % 100);
 }
 
 void compute(double** arr, int kern[3][3]){
@@ -57,9 +54,11 @@ void compute(double** arr, int kern[3][3]){
 
 void print(double** arr){
     int i, j;
+
     for(i = 0 ; i < 3 ; i++)
-        for(j = 0 ; j < 5; j++)
+        for(j = 0 ; j < 5; j++){
             printf("array[%i][%i] = %f\n", i, j, arr[i][j]);
+        }
             //printf("array[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\n", i, 0, arr[i][0], i, 1, arr[i][1], i, 2, arr[i][2], i, 3, arr[i][3], i, 4, arr[i][4]);
 
 }
