@@ -11,10 +11,10 @@ lab3original:	lab3original.c
 
 gmon: 
 	./lab3
-	gprof lab3 gmon.out > analysis.txt
+	gprof lab3 gmon.out > profiling/analysis.txt
 
 cppcheck: 
-	cppcheck --enable=all --suppress=missingIncludeSystem lab3.c 2>err.txt
+	cppcheck --enable=all --suppress=missingIncludeSystem ./*.c 2>err.txt
                 
 clean:
 	rm -f lab3 lab3original gmon.out 

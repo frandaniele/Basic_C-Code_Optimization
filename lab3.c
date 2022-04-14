@@ -20,32 +20,26 @@ double **alloc_matrix(void) /* Allocate the array */{
 void fill(double** arr){
     int i, j;
 
-    for(i = 0; i < XDIM; i++)
-        for(j = 0; j < YDIM; j++)
-            arr[i][j] = (double)(rand() % 100);
+    for(i = 0; i < XDIM; i++) 
+        for(j = 0; j < YDIM; j++){
+            arr[i][j] = (double)(rand()%100); // es posible mejorar modulo y casteo?
+        }
 }
 
 void compute(double** arr, int kern[3][3]){
-    double tmp_sum[3];
-    double dato, accum;
-    int i, j;
+    double tmp_sum[2];
+    double accum;
+    int i, j, x;
 
-    for(i = 0; i < XDIM; i++){
-        int x = i - 1;
-
+    for(i = 0, x = -1; i < XDIM; i++, x++){
         for(j = 0; j < YDIM; j++){
-            //printf("processing: %i - %i \n", i, j); //lo hace muuuuy lento
-            if(i >= 1 && j >=1 && i < XDIM-1 && j <YDIM-1){
-                dato = arr[x][j];
-                tmp_sum[0] = (kern[0][1]*dato);
+            //printf("processing: %i - %i \n", i, j); 
+            if(i >= 1 && j >=1 && i < XDIM-1 && j <YDIM-1){ // no encuentro la forma de eliminar esto 
+                tmp_sum[0] = (arr[x][j] + arr[x + 2][j])*kern[0][1];
 
-                dato = arr[x + 1][j];
-                tmp_sum[1] = (kern[1][0] + kern[1][1] + kern[1][2])*dato;
+                tmp_sum[1] = (kern[1][0] + kern[1][1] + kern[1][2])*arr[x + 1][j];
                             
-                dato = arr[x + 2][j];
-                tmp_sum[2] = (kern[2][1]*dato);
-
-                accum = 9 + (tmp_sum[0] + tmp_sum[1] + tmp_sum[2])*0.001;
+                accum = 9 + (tmp_sum[0] + tmp_sum[1])*0.001;
             }
             arr[i][j] = accum;
         }
@@ -55,16 +49,15 @@ void compute(double** arr, int kern[3][3]){
 void print(double** arr){
     int i, j;
 
-    for(i = 0 ; i < 3 ; i++)
-        for(j = 0 ; j < 5; j++){
+    for(i = 0 ; i < 3 ; i++){
+        for(j = 0; j < 5; j++){
             printf("array[%i][%i] = %f\n", i, j, arr[i][j]);
         }
-            //printf("array[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\narray[%i][%i] = %f\n", i, 0, arr[i][0], i, 1, arr[i][1], i, 2, arr[i][2], i, 3, arr[i][3], i, 4, arr[i][4]);
-
+      }
 }
 
 int main(void){
-    double **arr;
+    double **arr; //hacer float para mejorar tiempo de operaciones?
     int kern[3][3] = {{0, -4, 0}, {-4, 20, -4}, {0, -4, 0}};
 
     arr = alloc_matrix();
