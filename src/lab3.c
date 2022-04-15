@@ -43,7 +43,7 @@ void compute(float** arr, float kern[3][3]){
         arr[i][0] = arr[x][YDIM - 1]; //arr[x+1][0] = arr[x][9999] siempre
         for(j = 1; j < YDIM - 1; j++){
             //printf("processing: %i - %i \n", i, j); 
-            tmp_sum[0] = (arr[x][j] + arr[x + 2][j])*kern[0][1];
+            tmp_sum[0] = (arr[x][j] + arr[x + 2][j])*kern[0][1]; //ver mult por -4
 
             tmp_sum[1] = (kern[1][0] + kern[1][1] + kern[1][2])*arr[x + 1][j];
                             
@@ -61,11 +61,12 @@ void compute(float** arr, float kern[3][3]){
 void print(float** arr){
     int i, j;
 
-    for(i = 0 ; i < 100 ; i++)
-        for(j = 0 ; j < 100 ; j++)
+    for(i = 0; i < 100; i++)
+        for(j = 0; j < 100; j++)
             printf("array[%d][%d] = %f\n", i, j, arr[i][j]);
-    for(i = XDIM - 100 ; i < XDIM ; i++)
-        for(j = YDIM - 100 ; j < YDIM  ; j++)
+
+    for(i = XDIM - 100; i < XDIM; i++)
+        for(j = YDIM - 100; j < YDIM ; j++)
             printf("array[%d][%d] = %f\n", i, j, arr[i][j]);
 }
 
