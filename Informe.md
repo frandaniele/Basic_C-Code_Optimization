@@ -11,11 +11,10 @@
 10. memset analysis 10
 11. elimine las mult que daban 0 y por consiguiente la suma de esos resultados (analysis 11)
 12. hasta nalysis 14 no hay mas cambios que los hasta aca hechos
+13. los nuevos cambios estan descritos en los analysis.txt
 
-# ver
+# ver -> LISTO
+arr[9999][x] = 9.539862 siempre -- esta
+arr[x][9998] = arr[x][9999] siempre -- esta
 arr[0][x] = 0 siempre -- esta
-
-ya elimine el i<=1 del if, seguir con los otros
-arr[x][9998] = arr[x][9999] siempre
-arr[9999][x] = 9.539862 siempre
-arr[x][9999] = arr[x+1][0] siempre => arr[x][9998] = arr[x][9999] = arr[x+1][0] 
+arr[x][9999] = arr[x+1][0] siempre => arr[x][9998] = arr[x][9999] = arr[x+1][0]  -- esta

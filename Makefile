@@ -1,20 +1,23 @@
 CC = gcc
 OFLAGS = -Wall -Werror -Wextra -Wconversion -pedantic -std=gnu11 -O0
 
-all:	lab3
+all:	build_folders lab3 lab3original
 
-lab3:	lab3.c
-	$(CC) $(OFLAGS) -pg -o lab3 lab3.c
+lab3:	src/lab3.c
+	$(CC) $(OFLAGS) -pg -o src/bin/lab3 src/lab3.c
 
-lab3original:	lab3original.c
-	$(CC) $(OFLAGS) -pg -o lab3original lab3original.c
+lab3original:	src/lab3original.c
+	$(CC) $(OFLAGS) -pg -o src/bin/lab3original src/lab3original.c
 
 gmon: 
-	./lab3
-	gprof lab3 gmon.out > profiling/analysis.txt
+	./src/bin/lab3
+	gprof src/bin/lab3 gmon.out > profiling/analysis.txt
 
 cppcheck: 
-	cppcheck --enable=all --suppress=missingIncludeSystem ./*.c 2>err.txt
-                
+	cppcheck --enable=all --suppress=missingIncludeSystem src/*.c 2>err.txt
+
+build_folders:
+	mkdir -p ./src/bin
+
 clean:
-	rm -f lab3 lab3original gmon.out 
+	rm -f -d src/bin/* src/bin gmon.out 
