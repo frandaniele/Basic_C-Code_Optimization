@@ -25,4 +25,5 @@ sleep 1
 
 gprof src/bin/lab3original gmon.out > profiling/original.txt
 
+diff --suppress-common-lines -y runoriginal.txt runmio.txt | head
 diff --suppress-common-lines -y runoriginal.txt runmio.txt | tail
