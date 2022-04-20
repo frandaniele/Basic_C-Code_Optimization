@@ -32,23 +32,26 @@ void fill(float** arr){
 }
 
 void compute(float** arr, float kern[3][3]){
-    float tmp_sum[2];
-    float accum;
-    int i, j, x;
+    float tmp_sum[8];
+    int i, j, x, y;
 
     for(j = 0; j < YDIM; j++)
         arr[0][j] = 0; // arr[0][x] = 0 siempre 
 
     for(i = 1, x = 0; i < XDIM - 1; i++, x++){
         arr[i][0] = arr[x][YDIM - 1]; //arr[x+1][0] = arr[x][9999] siempre
-        for(j = 1; j < YDIM - 1; j++){
-            tmp_sum[0] = (arr[x][j] + arr[x + 2][j])*kern[0][1]; //ver mult por -4
+        for(j = 1, y = 0; j < YDIM - 1; j++, y++){
+            tmp_sum[3] = kern[1][0]*arr[x+1][y];
 
-            tmp_sum[1] = (kern[1][0] + kern[1][1] + kern[1][2])*arr[x + 1][j];
-                            
-            accum = 9.0f + (tmp_sum[0] + tmp_sum[1])*0.001f;
-            
-            arr[i][j] = accum;
+            tmp_sum[1] = kern[0][1]*arr[x][y+1];
+
+            tmp_sum[4] = kern[1][1]*arr[x+1][y+1];
+
+            tmp_sum[7] = kern[2][1]*arr[x+2][y+1];
+               
+            tmp_sum[5] = kern[1][2]*arr[x+1][y+2];
+               
+            arr[i][j] = 9 + (tmp_sum[1] + tmp_sum[3] + tmp_sum[4] + tmp_sum[5] + tmp_sum[7])*0.001f;
         }
         arr[i][YDIM - 1] = arr[i][YDIM - 2]; // arr[x][9999] = arr[x][9998]
     }
